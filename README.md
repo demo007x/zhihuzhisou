@@ -58,6 +58,16 @@ zhihuzhisou/
 2. 把本 Skill 装进你的 Agent 环境（WorkBuddy、豆包等支持装 Skill 的软件）；
 3. 直接说一句，比如"有什么跨平台好用的划词软件推荐"，它会自动跑完整个流程，产出带来源的 HTML 答案页。
 
+## 一键下载安装
+
+复制下面这段文字给你的 Agent（比如 WorkBuddy、豆包），它会自动下载并安装本 Skill：
+
+> 请安装来自 GitHub 的 Skill「知乎智搜」。
+> 安装地址：https://github.com/demo007x/zhihuzhisou
+> 请阅读 SKILL.md，确认权限与依赖后，在当前环境完成安装。
+
+安装前请先装好 zhihu-cli（见上方「前置依赖」），本 Skill 依赖它。
+
 ## License
 
 MIT
