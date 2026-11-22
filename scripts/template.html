@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知乎智搜 · {{QUESTION}}</title>
+<style>
+  :root {
+    --zhihu-blue: #0084ff;
+    --zhihu-blue-dark: #056de8;
+    --bg: #f2f4f7;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-tertiary: #8590a6;
+    --line: #ececf0;
+    --green: #0f8a44;
+    --red: #e0473c;
+    --amber: #b9810a;
+    --green-bg: #eff8f2;
+    --red-bg: #fdf1f1;
+    --amber-bg: #fdf6e8;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.03);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 56px; }
+
+  /* ===== 品牌 Header ===== */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 2px 4px 22px;
+  }
+  .header .brand { display: flex; align-items: center; gap: 11px; }
+  .header .logo { width: 40px; height: 40px; flex-shrink: 0; border-radius: 9px; box-shadow: 0 2px 8px rgba(0,132,255,0.25); }
+  .header .brand-name { font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: .5px; }
+  .header .slogan { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .header .trust-pill {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--green);
+    background: var(--green-bg); border: 1px solid #d7efe0;
+    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .header .trust-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ===== 结论卡（产品级头部）===== */
+  .verdict {
+    background: linear-gradient(135deg, #0a6cff 0%, #0084ff 55%, #2b95ff 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 24px 26px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,132,255,0.22);
+  }
+  .verdict .verdict-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px; opacity: .85;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .verdict .big { font-size: 18px; font-weight: 700; line-height: 1.6; }
+  .verdict .sub { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.22); }
+  .verdict .sub li {
+    list-style: none; font-size: 14px; opacity: .96;
+    padding-left: 18px; position: relative; margin-top: 8px; line-height: 1.6;
+  }
+  .verdict .sub li::before {
+    content: ""; position: absolute; left: 3px; top: 9px;
+    width: 5px; height: 5px; border-radius: 50%; background: #fff; opacity: .9;
+  }
+
+  /* ===== 通用板块 ===== */
+  .section {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .section-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    padding-left: 11px;
+    border-left: 3px solid var(--zhihu-blue);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  /* ===== 意图锚点 ===== */
+  .intent { background: #fff; }
+  .intent .q-label { color: var(--text-tertiary); font-size: 12px; margin-bottom: 3px; letter-spacing: 1px; }
+  .intent .q { font-size: 17px; font-weight: 600; line-height: 1.55; }
+  .tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 13px; color: var(--zhihu-blue-dark);
+    background: #f0f7ff; border: 1px solid #e0eeff;
+    border-radius: 4px; padding: 2px 11px;
+  }
+
+  /* ===== 验证提示 ===== */
+  .verify-note {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: var(--text-secondary);
+    background: #f6f8fb; border: 1px solid #eef1f6;
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 16px;
+  }
+  .verify-note .icon { color: var(--zhihu-blue); font-weight: 700; }
+
+  /* ===== 对比表 ===== */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table th, .compare-table td {
+    border-bottom: 1px solid var(--line); padding: 13px 10px; text-align: left; vertical-align: top;
+  }
+  .compare-table th { color: var(--text-tertiary); font-weight: 500; font-size: 13px; }
+  .compare-table td { color: var(--text); }
+  .compare-table a { color: var(--zhihu-blue); text-decoration: none; font-weight: 500; }
+  .compare-table a:hover { color: var(--zhihu-blue-dark); }
+
+  /* ===== 可信度 badge ===== */
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; white-space: nowrap; padding: 2px 9px; border-radius: 999px; }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .badge.keep { color: var(--green); background: var(--green-bg); }
+  .badge.keep .dot { background: var(--green); }
+  .badge.down { color: var(--amber); background: var(--amber-bg); }
+  .badge.down .dot { background: var(--amber); }
+  .badge.doubt { color: var(--red); background: var(--red-bg); }
+  .badge.doubt .dot { background: var(--red); }
+
+  /* ===== 分歧区 ===== */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .split { grid-template-columns: 1fr; } }
+  .col { border-radius: 10px; padding: 15px 17px; }
+  .col.for { background: var(--green-bg); }
+  .col.against { background: var(--red-bg); }
+  .col .col-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .col.for .col-title { color: var(--green); }
+  .col.against .col-title { color: var(--red); }
+  .col p { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+  .col p:last-child { margin-bottom: 0; }
+  .divpoint { font-size: 14px; margin-top: 14px; padding: 13px 15px; background: #fafbfc; border: 1px solid var(--line); border-radius: 8px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ===== 来源区 ===== */
+  .sources { font-size: 14px; }
+  .sources li { list-style: none; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .sources li:last-child { border-bottom: none; }
+  .sources a { color: var(--zhihu-blue); text-decoration: none; font-weight: 500; }
+  .sources a:hover { color: var(--zhihu-blue-dark); }
+  .src-platform { font-size: 12px; color: var(--text-tertiary); margin-left: 6px; }
+
+  /* ===== 页脚 ===== */
+  .footer { text-align: center; margin-top: 20px; }
+  .footer .footer-brand { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-tertiary); }
+  .footer .footer-brand .logo { width: 16px; height: 16px; border-radius: 4px; }
+  .footer .footer-note { font-size: 12px; color: #b0b8c4; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== 品牌 Header ===== -->
+  <div class="header">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="32" height="32" rx="7" fill="#0084ff"/>
+        <circle cx="14" cy="14" r="7" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+        <line x1="19.2" y1="19.2" x2="24.5" y2="24.5" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="14" cy="14" r="2.4" fill="#ffffff"/>
+      </svg>
+      <div>
+        <div class="brand-name">知乎智搜</div>
+        <div class="slogan">看得见来源的答案</div>
+      </div>
+    </div>
+    <div class="trust-pill"><span class="dot"></span>{{TRUST_PILL}}</div>
+  </div>
+
+  <!-- ===== 结论卡 ===== -->
+  <div class="verdict">
+    <div class="verdict-label">结论</div>
+    <div class="big">{{CONCLUSION}}</div>
+    <ul class="sub">{{CONDITIONS}}</ul>
+  </div>
+
+  <!-- ===== 意图锚点 ===== -->
+  <div class="section intent">
+    <div class="q-label">你问的是</div>
+    <div class="q">{{QUESTION}}</div>
+    <div class="tags">{{QUERY_TAGS}}</div>
+  </div>
+
+  <!-- ===== 证据区 ===== -->
+  <div class="section">
+    <div class="section-title">{{EVIDENCE_TITLE}}</div>
+    {{VERIFY_NOTE}}
+    {{EVIDENCE_BODY}}
+  </div>
+
+  <!-- ===== 分歧区 ===== -->
+  <div class="section">
+    <div class="section-title">{{DIVERGENCE_TITLE}}</div>
+    {{DIVERGENCE_BODY}}
+  </div>
+
+  <!-- ===== 来源区 ===== -->
+  <div class="section">
+    <div class="section-title">{{SOURCES_TITLE}}</div>
+    <ul class="sources">{{SOURCES}}</ul>
+  </div>
+
+  <!-- ===== 页脚 ===== -->
+  <div class="footer">
+    <div class="footer-brand">
+      <svg class="logo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="32" height="32" rx="7" fill="#0084ff"/>
+        <circle cx="14" cy="14" r="7" fill="none" stroke="#ffffff" stroke-width="2.2"/>
+        <line x1="19.2" y1="19.2" x2="24.5" y2="24.5" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="14" cy="14" r="2.4" fill="#ffffff"/>
+      </svg>
+      知乎智搜
+    </div>
+    <div class="footer-note">{{FOOTER}}</div>
+  </div>
+</div>
+</body>
+</html>
