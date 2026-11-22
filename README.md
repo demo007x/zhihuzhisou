@@ -1,14 +1,12 @@
+<p align="center">
+  <img src="./assets/icon.png" width="160" height="160" alt="知乎智搜 icon" />
+</p>
+
 # 知乎智搜（zhihuzhisou）
 
 一个基于**知乎智能搜索**的答案引擎 Skill。它把官方 zhihu-cli 的检索能力，升级成「可溯源、懂意图、可迭代」的答案。
 
 > 知乎直答给你一个答案，知乎智搜给你一个看得见来源的答案。
-
-## Icon
-
-<p align="center">
-  <img src="./assets/icon.png" width="160" height="160" alt="知乎智搜 icon" />
-</p>
 
 ## 它解决什么问题
 
