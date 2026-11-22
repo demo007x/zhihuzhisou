@@ -1,18 +1,21 @@
+<div align="center">
+
 # 知乎智搜（zhihuzhisou）
 
-一个基于**知乎智能搜索**的答案引擎 Skill。它把官方 zhihu-cli 的检索能力，升级成「可溯源、懂意图、可迭代」的答案。
+<img src="./assets/icon.png" width="160" height="160" alt="知乎智搜" />
+
+**一个基于知乎智能搜索的答案引擎 Skill**
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![知乎智能搜索](https://img.shields.io/badge/基于-知乎智能搜索-0084ff.svg)](https://developer.zhihu.com/)
+
+</div>
 
 > 知乎直答给你一个答案，知乎智搜给你一个看得见来源的答案。
 
-## Icon
+## 它是什么
 
-<p align="center">
-  <img src="./assets/icon.png" width="160" height="160" alt="知乎智搜 icon" />
-</p>
-
-## 它解决什么问题
-
-知乎直答能给一段很顺的总结，但不会告诉你：这句话是谁说的、原话怎么说的、凭什么信它。知乎智搜补上这层"来源"——每条结论都能点回真实的知乎原文、作者、赞同数。
+知乎智搜把官方 zhihu-cli 的检索能力，升级成「可溯源、懂意图、可迭代」的答案引擎。它解决一个问题：知乎直答能给你一段很顺的总结，但不会告诉你这句话是谁说的、原话怎么说的、凭什么信它。智搜补上这层"来源"——每条结论都能点回真实的知乎原文、作者、赞同数。
 
 ## 工作原理
 
@@ -46,7 +49,9 @@ zhihuzhisou/
 │   ├── template.html          # 答案页 HTML 模板
 │   └── ablation.js            # 权重消融实验
 └── assets/                # 品牌资源
-    └── logo.svg
+    ├── icon.svg               # 图标（矢量源）
+    ├── icon.png               # 图标（PNG，透明底）
+    └── logo.svg               # 小 logo（页面内嵌用）
 ```
 
 ## 前置依赖
@@ -76,4 +81,4 @@ zhihuzhisou/
 
 ## License
 
-MIT
+[MIT](./LICENSE)
